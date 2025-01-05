@@ -1,0 +1,323 @@
+%-------------------------
+% Rezume, a latex resume template for developers
+% Author : Nanu Panchamurthy
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+
+% Hope this resume template helps you land an awesome job. If you found this helpful, please consider starring the github repo here, .
+%-------------------------
+
+
+
+%------------PACKAGES----------------
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{verbatim} % reimplements the "verbatim" and "verbatim*" environments
+
+\usepackage{titlesec} % provides an interface to sectioning commands i.e. custom elements
+
+\usepackage{color} % provides both foreground and background color management
+
+\usepackage{enumitem} % provides control over enumerate, itemize and description
+
+\usepackage{fancyhdr} % provides extensive facilities for constructing headers, footers and also controlling their use
+
+\usepackage{tabularx} % defines an environment tabularx, extension of "tabular" with an extra designator x, paragraph like column whose width automatically expands to fill the width of the environment
+
+\usepackage{latexsym} % provides mathematical symbols
+
+\usepackage{marvosym} % provides martin vogel's symbol font which contains various symbols
+
+\usepackage[empty]{fullpage} % sets margins to one inch and removes headers, footers etc..
+
+\usepackage[hidelinks]{hyperref} % removes color and shadow of hyperlinks
+
+\usepackage[normalem]{ulem} % provides "\ul" (uline) command which will break at line breaks
+
+\usepackage[english]{babel} % provides culturally determined typographical rules for wide range of languages
+%-----------------------------------------
+
+\input glyphtounicode % converts glyph names to unicode
+\pdfgentounicode=1 % ensures pdfs generated are ats readable
+
+%----------FONT OPTIONS-------------------
+\usepackage[default]{sourcesanspro} % uses the font source sans pro
+\urlstyle{same} % changes url font from default urlfont to font being used by the document
+%-----------------------------------------
+
+
+%----------MARGIN OPTIONS-----------------
+\pagestyle{fancy} % set page style to one configured by fancyhdr
+\fancyhf{} % clear all header and footer fields
+
+\renewcommand{\headrulewidth}{0in} % sets thickness of linerule under header to zero
+\renewcommand{\footrulewidth}{0in} % sets thickness of linerule over footer to zero
+
+\setlength{\tabcolsep}{0in} % sets thickness of column separator in tables to zero
+
+% origin of the document is one inch from the top and from and the left
+% oddsidemargin and evensidemargin both refer to the left margin
+% right margin is indirectly set using oddsidemargin
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\topmargin}{-0.5in}
+
+\addtolength{\textwidth}{1.0in} % sets width of text area in the page to one inch
+\addtolength{\textheight}{1.0in} % sets height of text area in the page to one inch
+
+\raggedbottom{} % makes all pages the height of current page, no extra vertical space added
+\raggedright{} % makes all pages the width of current page, no extra horizontal space added
+%------------------------------------------
+
+
+%--------SECTIONING COMMANDS---------
+% \titleformat{<command>}
+%   [<shape>]{<format>}{<label>}{<sep>}
+%     {<before-code>}[<after-code>]
+
+% command is the sectioning command to be redefined
+% shape is the style of the font; scshape stands for small caps style
+% format is the format to be applied to whole title- label and text; absent here
+% label defines the label
+% sep is the horizontal separation between label and title body
+% before-code is the code to be executed before
+% after-code is the code to be executed after
+
+\titleformat{\section}
+  {\scshape\large}{}
+    {0em}{\color{blue}}[\color{black}\titlerule\vspace{0pt}]
+%-------------------------------------
+
+
+%--------REDEFINITIONS----------------
+% redefines the style of the bullet point
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% redefines the underline depth to 2pt
+\renewcommand{\ULdepth}{2pt}
+%-------------------------------------
+
+
+%--------CUSTOM COMMANDS--------------
+%\vspace{} defines a vertical space of given size, modifying this in custom commands can help stretch or shrink resume to remove or add content
+
+% resumeItem renders a bullet point
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+% commands to start and end itemization of resumeItem, rightmargin set to 0.11in to avoid the overflow of resumetItem beyond whatever resumeItemHeading is being used
+\newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% resumeSectionType renders a bolded type to be used under a section, used as skill type here, middle element is used to keep ":"s in the same vertical line
+\newcommand{\resumeSectionType}[3]{
+  \item\begin{tabular*}{0.96\textwidth}[t]{
+    p{0.15\linewidth}p{0.02\linewidth}p{0.81\linewidth}
+  }
+    \textbf{#1} & #2 & #3
+  \end{tabular*}\vspace{-2pt}
+}
+
+% resumeTrioHeading renders three elements in three columns with second element being italicized and first element bolded, can be used for projects with three elements
+\newcommand{\resumeTrioHeading}[3]{
+  \item\small{
+    \begin{tabular*}{0.96\textwidth}[t]{
+      l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r
+    }
+      \textbf{#1} & \textit{#2} & #3
+    \end{tabular*}
+  }
+}
+
+% resumeQuadHeading renders four elements in a two columns with the second row being italicized and first element of first row bolded, can be used for experience and projects with four elements
+\newcommand{\resumeQuadHeading}[4]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small #4} \\
+  \end{tabular*}
+}
+
+% resumeQuadHeadingChild renders the second row of resumeQuadHeading, can be used for experience if different roles in the same company need to added
+\newcommand{\resumeQuadHeadingChild}[2]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{\small#1} & {\small#2} \\
+  \end{tabular*}
+}
+
+% commands to start and end itemization of resumeQuadHeading, lefmargin for left indent of 0.15in for resumeItems
+\newcommand{\resumeHeadingListStart}{
+  \begin{itemize}[leftmargin=0.15in, label={}]
+}
+\newcommand{\resumeHeadingListEnd}{\end{itemize}}
+%-------------------------------------------
+
+
+%_______RESUME_______
+% You can rearrange sections in any order you may prefer
+\begin{document}
+
+%-----------CONTACT DETAILS------------------
+% Make sure all the details are correct, you can add more links in the first row of second column if needed
+
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\Huge Jawad Khan \vspace{2pt}} & % row = 1, col = 1
+  Location: Islamabad, Pakistan \\ % row = 1, col = 2
+  
+  \href{https://jkbells.site/}{{jkbells.com}} $|$ % row = 2, col = 1
+  
+  \href{https://www.linkedin.com/in/jkbells/}{{LinkedIn}} $|$ % row = 2, col = 1
+  
+  \href{https://github.com/jkbells}{{GitHub}} $|$ % row = 2, col = 1
+  
+  \href{https://leetcode.com/jane-doe}{{}} & % row = 2, col = 1
+  Email: \href{mailto:jawadkhanco@gmail.com}{{jawadkhanco@gmail.com}} $|$ % row = 2, col = 2
+  Mobile: +92 3155966317 \\ % row = 2, col = 2
+
+\end{tabular*}
+%--------------------------------------------
+
+
+%-----------SUMMARY--------------------------
+% Keep this short, simple and straigth to point
+
+\section{Digital Marketing Specialist}
+\small{
+Experienced marketing professional with a proven track record in digital marketing, specializing in \textbf{email marketing, social media management, PPC, SEO, Meta ads and Google Ads.} Demonstrated success in driving engagement, increasing brand visibility, and achieving measurable results for clients. Skilled in \textbf{analytics reporting, client communication, and collaboration.} Consistently exceeds expectations and fosters enduring client relationships.
+}
+%--------------------------------------------
+
+
+%--------------SKILLS------------------------
+% Add or remove resumeSectionTypes according to your needs
+
+\section{Skills}
+  \resumeHeadingListStart{}
+    \resumeSectionType{Marketing}{:}{Facebook ads, Google ads, tiktok ads, Pinterest ads, LinkedIn ads, Youtube ads, X ads}
+    \resumeSectionType{SEO}{:}{OnPage SEO, OffPage SEO, Backlinks, SEM}
+    \resumeSectionType{Analytics}{:}{Google Analytics, Google Tag Manager}
+    \resumeSectionType{Copywriting}{:}{Creativity, Writing Skills, Research, Collaboration, Content Strategy}
+    \resumeSectionType{Email Marketing}{:}{MailChimp, Kalviyo, Woodpecker}
+    \resumeSectionType{CRM Tools}{:}{Hubspot, Salesforce, Zoho}
+    \resumeSectionType{Lead Gen Tools}{:}{LeadsGorilla, Leadswift, salesnavigator, Apollo , SalesQL , CruchBase , Cluch.co, seemless.ai, zoominfo }
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%-----------EXPERIENCE-----------------------
+% Distill all your talking points to small bullet points which follow the pattern "challenge-action-result" for maximum efficiency. Try to quantify (use numbers) your points whenver possible, highlist words of importance
+
+\section{Experience}
+\resumeHeadingListStart{}
+
+  \resumeQuadHeading{Social Media Manager}{May 2020 - Dec 2020}
+  {CHIQIO}{Remote - Texas, USA}
+    \resumeItemListStart{}
+      \resumeItem{ Designed email marketing campaigns targeting a client base of \textbf{2,000+, achieving a 25 percent increase} in engagement. Managed social media accounts, growing followers by \textbf{30 percent within six months} through strategic content creation.}
+      \resumeItem{Analyzed digital campaign performance using \textbf{Google Analytics and social insights}, providing data-driven reports to \textbf{optimize future strategies}.}
+    \resumeItemListEnd{}
+    
+  \resumeQuadHeading{Digital Marketing Specialist}{Jan 2021 - March 2022}
+  {Jk Advanced}{Remote -- Lahore, Pakistan}
+    \resumeItemListStart{}
+      \resumeItem{Executed multi-platform digital marketing campaigns, \textbf{achieving a 35 percent increase in website traffic and a 40 percent growth in social media engagement} through strategic content and targeted ad placements.}
+      
+      \resumeItem{Designed and \textbf{implemented SEO and PPC strategies}, leading to improved search engine rankings and a \textbf{20 percent reduction in customer acquisition costs}.}
+
+      
+      \resumeItem{Collaborated with cross-functional teams to deliver \textbf{high-quality content and marketing assets}, successfully launching 3 major campaigns that exceeded projected \textbf{KPIs for engagement and conversions}.}
+    \resumeItemListEnd{}
+
+        
+  \resumeQuadHeading{ Digital Marketing Associate}{Aug 2022 –  June 2023}
+  {Bundler Agency LLC}{Remote -- islamabad, Pakistan}
+    \resumeItemListStart{}
+      \resumeItem{Managed Google Ads accounts with an ad spend of over \textbf{20,000 dollers per month}. Achieved an average of \textbf{200 percent ROAS} across all ad accounts.}
+      
+      \resumeItem{Successfully managed and \textbf{optimized paid ad campaigns} across social media and search engines, \textbf{achieving a 25 percent increase in ROI} and driving 40 percent more website traffic within six months.}
+      
+      \resumeItem{Developed and implemented \textbf{SEO strategies that improved website visibility}, resulting in a \textbf{30 percent increase in organic traffic} and higher search engine rankings for target keywords.}
+    \resumeItemListEnd{}
+
+    
+  \resumeQuadHeading{Lead Generation and Marketing Specialist}{Sep 2023 - Nov 2024 }
+  {Online Boost LLC}{Remote - Warshaw, Poland}
+    \resumeItemListStart{}
+      \resumeItem{Drove significant business growth by \textbf{generating high-quality leads} and improving conversion rates through targeted \textbf{paid advertising campaigns}.}
+      
+      \resumeItem{Enhanced online presence and search rankings with effective SEO strategies, \textbf{optimized social media} engagement, and local search visibility via \textbf{Google Business Pages}.}
+      
+      \resumeItem{Delivered high customer satisfaction and retention by providing actionable \textbf{insights through analytics, producing SEO-optimized content}, and engaging effectively with clients.}
+    \resumeItemListEnd{}
+
+
+     
+%---------------------------------------------
+
+
+%-----------EDUCATION-------------------------
+% Mention your CGPA, if its good, in the first row of second column
+
+\section{Education}
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{National University of Computer and Emerging Sciences}{Islamabad, Pakistan}
+    {Bachelor of Science in Computer Science}{Aug 2019 -- Jan 2024}
+    \resumeQuadHeading{Rawalpindi Board of Intermediate and Secondary Education}{Islamabad, Pakistan}
+    {F.Sc. (Pre Engineering)}{Aug. 2016s – May 2018}
+    
+  \resumeHeadingListEnd{}
+%---------------------------------------------
+
+
+%-----------PROJECTS--------------------------
+% Use resumeQuadHeading if four elements are feasible (ex: demo video link), else use resumeTrioHeading. Keep the bullet points simple and concise and try to cover wide variety of skills you have used to build these projects
+
+\section{Projects}
+  \resumeHeadingListStart{}
+    \resumeTrioHeading{{{Facebook Ads Campaigns}}}{}{\href{https://jkbells.site/works/}{{Source}}}
+      \resumeItemListStart{}
+        \resumeItem{Successfully executed targeted Facebook ad campaigns across diverse industries including \textbf{jewelry, gadgets, healthcare, and fashion.}Conducted comprehensive business analyses to inform strategic campaign planning, resulting in increased \textbf{sales and leads} for clients.}
+        \resumeItem{Demonstrated adaptability and expertise in optimizing ad performance, leveraging competitive insights to drive client success and satisfaction.}
+      \resumeItemListEnd{}
+      
+% / -----------------------------------------------------------
+      
+
+      \resumeTrioHeading{Google Ads Campaigns}{}{\href{https://jkbells.site/works/}{{Source}}}
+      \resumeItemListStart{}
+        \resumeItem{Implemented and managed Google Ads campaigns for clients in various industries, including \textbf{luxury lighting, hair extensions, and electric bikes.}}
+        \resumeItem{Developed tailored campaign strategies to meet specific client objectives, such as creating location-based P-MAX campaigns for a luxury lighting business and setting up local store visit campaigns for a hair extensions retailer.}
+      \resumeItemListEnd{}
+% ---------------------------------------------------
+
+      \resumeTrioHeading{Email Marketing Campaigns}{}{\href{https://jkbells.site/works/}{{Source}}}
+      \resumeItemListStart{}
+        \resumeItem{Highly successful email marketing campaigns for diverse clients like \textbf{Provacan, NH, and LLK,} achieving remarkable average conversion rates ranging from 35 percent to 53 percent.}
+        \resumeItem{Developed comprehensive email marketing strategies from inception to execution, utilizing platforms like \textbf{Klaviyo,} and consistently delivered outstanding results, including average conversion rates of up to 39 percent over collaborative periods ranging from 1 to 11 months.}
+      \resumeItemListEnd{}
+      
+% --------------------------------------------------------
+
+      
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%----------------OTHERS----------------------
+% You can add your acheivements, accolades, certifications etc. here.
+
+\section{Certifications}
+  \resumeItemListStart{}
+    \resumeItem{\href{https://www.udemy.com/certificate/UC-fd68751c-992e-4bf0-a67e-bb14c3d0ab5a/}{{The Complete Digital Marketing Guide - 24 Courses in 1}}}
+    \resumeItem{\href{https://www.freecodecamp.org/certification/jkbells/responsive-web-design}{{Responsive Web Design}}}
+    
+    \resumeItem{\href{https://www.freecodecamp.org/certification/jkbells/javascript-algorithms-and-data-structures}{{JavaScript Algorithms and Data Structures}}}
+
+    \resumeItem{\href{https://www.freecodecamp.org/certification/jkbells/front-end-development-libraries}{{Front End Development Libraries}}}
+
+    
+  \resumeItemListEnd{}
+%--------------------------------------------
+
+\end{document}
